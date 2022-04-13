@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: insights-idm
+objects:
+  - apiVersion: cloud.redhat.com/v1alpha1
+    kind: Frontend
+    metadata:
+      name: insights-idm
+    spec:
+      envName: ${ENV_NAME}
+      title: Identity Management
+      deploymentRepo: TBD
+      frontend:
+        paths:
+          - /apps/insights-idm
+      image: ${IMAGE}:${IMAGE_TAG}
+      navItems: 
+      - appId: insights-idm
+        title: Identity Management
+        href: "/insights/insights-idm"
+      module:
+        manifestLocation: "/apps/insights-idm/fed-mods.json"
+        modules:
+          - id: "insights-idm"
+            module: "./RootApp"
+            routes: 
+            - pathname: "/insights/insights-idm"
+
+parameters:
+  - name: ENV_NAME
+    required: true
+  - name: IMAGE_TAG
+    required: true
+  - name: IMAGE
+    value: TBD
